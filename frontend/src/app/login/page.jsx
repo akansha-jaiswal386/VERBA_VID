@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Signup from "../signup/page";
 
 const Login = () => {
   return (

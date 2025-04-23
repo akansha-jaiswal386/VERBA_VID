@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -7,48 +6,59 @@ import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import { Quantum } from 'ldrs/react'
 import 'ldrs/react/Quantum.css'
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
-// Default values shown
-
+// Define the Signup Schema using Yup
+const SignupSchema = Yup.object({
+  name: Yup.string()
+    .min(3, "Full name must be at least 3 characters")
+    .required("Full name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .matches(/[a-z]/, "Lowercase is required")
+    .matches(/[A-Z]/, "Uppercase is required")
+    .matches(/[0-9]/, "Number is required")
+    .matches(/\W/, "Special character is required")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+});
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
-      fullName: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
-    validationSchema: Yup.object({
-      fullName: Yup.string()
-        .min(3, "Full name must be at least 3 characters")
-        .required("Full name is required"),
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .matches(/[a-z]/, "Lowercase is required")
-        .matches(/[A-Z]/, "Uppercase is required")
-        .matches(/[0-9]/, "Number is required")
-        .matches(/\W/, "Special character is required")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Confirm Password is required"),
-    }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted with values:", values);
-      setIsSubmitting(true);
-      setTimeout(() => {
-        alert("Signup Successful!");
+    validationSchema: SignupSchema, 
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      console.log(values);
+
+      try {
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, values);
+        console.log(res.status);
+        console.log(res.statusText);
+        toast.success('User registered successfully');
         resetForm();
-        setIsSubmitting(false);
-      }, 2000);
+        router.push('/login');
+      } catch (error) {
+        console.log(error);
+        setSubmitting(false);
+        toast.error('User registration failed');
+      }
     },
   });
 
@@ -69,17 +79,17 @@ const Signup = () => {
             <label className="block text-gray-700">Full Name</label>
             <input
               type="text"
-              name="fullName"
+              name="name"
               placeholder="Enter your full name"
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-                formik.touched.fullName && formik.errors.fullName ? "border-red-500" : ""
+                formik.touched.name && formik.errors.name ? "border-red-500" : ""
               }`}
-              {...formik.getFieldProps("fullName")}
+              {...formik.getFieldProps("name")}
             />
-            {formik.touched.fullName && formik.errors.fullName && (
-              <p className="text-red-500 text-sm mt-1">{formik.errors.fullName}</p>
+            {formik.touched.name && formik.errors.name && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
             )}
-          </div>
+            </div>
 
           <div>
             <label className="block text-gray-700">Email</label>
@@ -135,7 +145,6 @@ const Signup = () => {
                 {...formik.getFieldProps("confirmPassword")}
               />
               <button
-              
                 type="button"
                 className="absolute inset-y-0 right-3 flex items-center"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -149,21 +158,15 @@ const Signup = () => {
           </div>
 
           <button
-      
-
-
             type="submit"
             className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition duration-300 disabled:bg-gray-400"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              <Quantum
-               size="45"
-               speed="1.75"
-               color="black" 
-            />
-
-            ) : "Sign Up"}
+              <Quantum size="45" speed="1.75" color="black" />
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
 

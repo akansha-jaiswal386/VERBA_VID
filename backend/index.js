@@ -1,11 +1,25 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require("express");
+const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const router = require("./Routes/userRouter.js");
+// require("./connection.js");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+dotenv.config();
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const PORT = process.env.PORT || 8000;
+
+app.use(express.json());
+app.get("/ping", (req, res) => {
+    res.send("Pong");
+});
+app.use(bodyParser.json());
+app.use(cors({
+    origin: '*'
+}));
+app.use("/auth", router);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
+});

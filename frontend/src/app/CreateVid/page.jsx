@@ -1,34 +1,40 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 
-const createvid = () => {
+const UploadPage = () => {
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleGenerateVideo = () => {
+    if (!file) {
+      alert("Please upload a document first!");
+    } else {
+      alert("Video generation initiated!");
+      // Handle the video generation logic here
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-green-200 flex items-center justify-center animate-fade-in">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full space-y-6 transition-all duration-300 ease-in-out transform hover:scale-[1.01]">
-        <h2 className="text-2xl font-bold text-center text-green-700">Upload Your Document</h2>
-
-        {/* Document Upload */}
-        <div>
-          <label className="block mb-2 font-medium">Choose Document:</label>
+    <div className="h-screen flex items-center justify-center bg-gradient-to-r from-emerald-500 to-green-400">
+      <div className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-lg transform transition-all duration-500 hover:scale-105">
+        <h1 className="text-4xl text-center font-bold text-emerald-600 mb-6">Generate Video from Document</h1>
+        <div className="mb-4">
           <input
             type="file"
-            accept=".pdf,.doc,.docx,.txt"
-            className="w-full p-2 border rounded"
+            onChange={handleFileChange}
+            accept=".pdf, .docx"
+            className="w-full p-4 border-2 border-emerald-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
-
-        {/* Buttons */}
-        <div className="grid grid-cols-2 gap-4">
-          <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">
-            Create Video
-          </button>
-          <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-            Add Image
-          </button>
-          <button className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition">
-            Reset
-          </button>
-          <button className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition">
-            Preview
+        <div className="flex justify-center">
+          <button
+            onClick={handleGenerateVideo}
+            className="w-64 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-md shadow-md hover:bg-gradient-to-r hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105"
+          >
+            Generate Video
           </button>
         </div>
       </div>
@@ -36,4 +42,4 @@ const createvid = () => {
   );
 };
 
-export default createvid;
+export default UploadPage;
