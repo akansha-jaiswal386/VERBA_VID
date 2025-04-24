@@ -17,7 +17,7 @@ export default function Navbar() {
 
           <ul className="hidden md:flex space-x-6">
             <li><Link href="/" className="hover:text-gray-400">Home</Link></li>
-            <li><Link href="/About" className="hover:text-gray-400">About</Link></li>
+            <li><a href="#about" className="hover:text-gray-400">About</a></li>
             <li><Link href="/Feature" className="hover:text-gray-400">Features</Link></li>
             <li><Link href="/Contact" className="hover:text-gray-400">Contact</Link></li>
           </ul>
