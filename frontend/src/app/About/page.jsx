@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <section className="w-full min-h-screen py-20 px-8 bg-emerald-100 text-gray-900">
+    <section id="about" className="w-full min-h-screen py-20 px-8 bg-emerald-100 text-gray-900">
       {/* Main Heading */}
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
