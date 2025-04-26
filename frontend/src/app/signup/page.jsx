@@ -1,11 +1,10 @@
 "use client";
+
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
-import { Quantum } from 'ldrs/react'
-import 'ldrs/react/Quantum.css'
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -50,7 +49,6 @@ const Signup = () => {
       try {
         const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, values);
         console.log(res.status);
-        console.log(res.statusText);
         toast.success('User registered successfully');
         resetForm();
         router.push('/login');
@@ -63,18 +61,19 @@ const Signup = () => {
   });
 
   return (
-    <section className="w-full min-h-screen flex justify-center items-center bg-emerald-800">
+    <section className="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-black to-gray-900">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md"
+        className="bg-gray-100 p-8 rounded-2xl shadow-2xl w-full max-w-md"
       >
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-6">
           Create an Account
         </h1>
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
+          {/* Full Name Field */}
           <div>
             <label className="block text-gray-700">Full Name</label>
             <input
@@ -89,8 +88,9 @@ const Signup = () => {
             {formik.touched.name && formik.errors.name && (
               <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
             )}
-            </div>
+          </div>
 
+          {/* Email Field */}
           <div>
             <label className="block text-gray-700">Email</label>
             <input
@@ -107,6 +107,7 @@ const Signup = () => {
             )}
           </div>
 
+          {/* Password Field */}
           <div>
             <label className="block text-gray-700">Password</label>
             <div className="relative">
@@ -132,6 +133,7 @@ const Signup = () => {
             )}
           </div>
 
+          {/* Confirm Password Field */}
           <div>
             <label className="block text-gray-700">Confirm Password</label>
             <div className="relative">
@@ -157,21 +159,19 @@ const Signup = () => {
             )}
           </div>
 
+          {/* Sign Up Button */}
           <button
             type="submit"
-            className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition duration-300 disabled:bg-gray-400"
+            className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition duration-300"
             disabled={isSubmitting}
           >
-            {isSubmitting ? (
-              <Quantum size="45" speed="1.75" color="black" />
-            ) : (
-              "Sign Up"
-            )}
+            {isSubmitting ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
 
-        <div className="mt-4 text-center">
-          <p className="text-gray-600">
+        {/* Additional Links */}
+        <div className="mt-6 text-center">
+          <p className="text-gray-700">
             Already have an account?{" "}
             <a href="/login" className="text-emerald-600 font-semibold hover:underline">
               Login
