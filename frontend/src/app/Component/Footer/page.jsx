@@ -4,7 +4,7 @@ import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-emerald-900 text-white py-10 px-6">
+    <footer className="relative bg-gradient-to-br from-gray-900 to-black text-white py-10 px-6">
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">

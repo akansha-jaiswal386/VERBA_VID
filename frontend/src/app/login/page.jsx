@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 const Login = () => {
   return (
-    <section className="w-full min-h-screen flex justify-center items-center bg-emerald-800">
+    <section className="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-black to-gray-900">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md"
+        className="bg-gray-300 p-8 rounded-2xl shadow-2xl w-full max-w-md"
       >
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-6">
@@ -45,14 +45,14 @@ const Login = () => {
         </form>
 
         {/* Additional Links */}
-        <div className="mt-4 text-center">
-          <p className="text-gray-600">
+        <div className="mt-6 text-center">
+          <p className="text-gray-700">
             Don't have an account?{" "}
             <a href="/signup" className="text-emerald-600 font-semibold hover:underline">
               Sign Up
             </a>
           </p>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-700 mt-2">
             <a href="/forgot-password" className="text-emerald-600 font-semibold hover:underline">
               Forgot Password?
             </a>

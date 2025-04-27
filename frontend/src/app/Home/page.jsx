@@ -15,28 +15,26 @@ export default function HomePage() {
   const [charIndex, setCharIndex] = useState(0);
   const containerRef = useRef(null);
 
-  // Document configurations
   const documentIcons = [
-    { icon: FileText, size: 24, color: "text-emerald-300" },
-    { icon: File, size: 28, color: "text-emerald-400" },
-    { icon: FilePlus, size: 32, color: "text-emerald-500" },
-    { icon: FileEdit, size: 26, color: "text-emerald-300" },
-    { icon: FileSearch, size: 30, color: "text-emerald-400" },
-    { icon: FileInput, size: 22, color: "text-emerald-200" },
-    { icon: FileOutput, size: 28, color: "text-emerald-400" },
-    { icon: FileCode, size: 26, color: "text-emerald-300" },
-    { icon: FileImage, size: 30, color: "text-emerald-500" },
-    { icon: FileArchive, size: 24, color: "text-emerald-400" }
+    { icon: FileText, size: 24, color: "text-gray-300" },
+    { icon: File, size: 28, color: "text-gray-400" },
+    { icon: FilePlus, size: 32, color: "text-gray-500" },
+    { icon: FileEdit, size: 26, color: "text-gray-300" },
+    { icon: FileSearch, size: 30, color: "text-gray-400" },
+    { icon: FileInput, size: 22, color: "text-gray-200" },
+    { icon: FileOutput, size: 28, color: "text-gray-400" },
+    { icon: FileCode, size: 26, color: "text-gray-300" },
+    { icon: FileImage, size: 30, color: "text-gray-500" },
+    { icon: FileArchive, size: 24, color: "text-gray-400" }
   ];
 
   const [documents, setDocuments] = useState([]);
 
-  // Initialize documents with random positions
   useEffect(() => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.offsetWidth;
       const containerHeight = containerRef.current.offsetHeight;
-      
+
       const initialDocs = Array(12).fill().map((_, i) => ({
         id: i,
         icon: documentIcons[i % documentIcons.length],
@@ -47,12 +45,11 @@ export default function HomePage() {
         ySpeed: (Math.random() - 0.5) * 2,
         rotationSpeed: (Math.random() - 0.5) * 2
       }));
-      
+
       setDocuments(initialDocs);
     }
   }, []);
 
-  // Fixed typing effect with proper cleanup
   useEffect(() => {
     let timeoutId;
     const currentText = texts[index];
@@ -72,58 +69,60 @@ export default function HomePage() {
     return () => clearTimeout(timeoutId);
   }, [charIndex, index, texts]);
 
-  // Animation loop for documents (unchanged)
   useEffect(() => {
     if (documents.length === 0 || !containerRef.current) return;
 
     let animationId;
     const containerWidth = containerRef.current.offsetWidth;
     const containerHeight = containerRef.current.offsetHeight;
-    
+
     function animate() {
-      setDocuments(prevDocs => 
+      setDocuments(prevDocs =>
         prevDocs.map(doc => {
           let newX = doc.x + doc.xSpeed;
           let newY = doc.y + doc.ySpeed;
-          
+
           if (newX <= 0 || newX >= containerWidth - 50) {
             newX = Math.max(0, Math.min(newX, containerWidth - 50));
             return { ...doc, x: newX, y: newY, xSpeed: -doc.xSpeed, rotation: doc.rotation + doc.rotationSpeed };
           }
-          
+
           if (newY <= 0 || newY >= containerHeight - 50) {
             newY = Math.max(0, Math.min(newY, containerHeight - 50));
             return { ...doc, x: newX, y: newY, ySpeed: -doc.ySpeed, rotation: doc.rotation + doc.rotationSpeed };
           }
-          
+
           return { ...doc, x: newX, y: newY, rotation: doc.rotation + doc.rotationSpeed };
         })
       );
-      
+
       animationId = requestAnimationFrame(animate);
     }
-    
+
     animationId = requestAnimationFrame(animate);
-    
+
     return () => cancelAnimationFrame(animationId);
   }, [documents.length]);
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col justify-center items-center bg-black overflow-hidden" ref={containerRef}>
+    <div
+      className="relative w-full min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 to-black overflow-hidden"
+      ref={containerRef}
+    >
       {/* Background Effects */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
         <motion.div 
-          className="w-full h-full bg-gradient-to-r from-emerald-600 to-black opacity-30"
+          className="w-full h-full bg-gradient-to-r from-gray-800 to-black opacity-30"
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
         />
-        
+
         <motion.div 
           className="absolute inset-0 flex justify-center items-center opacity-20"
           animate={{ rotate: [0, 360] }}
           transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
         >
-          <div className="w-96 h-96 bg-emerald-500 rounded-full blur-3xl" />
+          <div className="w-96 h-96 bg-gray-700 rounded-full blur-3xl" />
         </motion.div>
 
         {/* Floating Documents */}
@@ -160,7 +159,7 @@ export default function HomePage() {
           Turn your reports into engaging videos effortlessly.
         </p>
         <button 
-          className="mt-6 px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-300"
+          className="mt-6 px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
           onClick={() => router.push("/CreateVid")}
           aria-label="Get started with video creation"
         >
