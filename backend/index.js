@@ -9,6 +9,9 @@ const multer = require("multer");
 const axios = require("axios");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const execAsync = util.promisify(exec);
+require('./connection.js'); 
+
+
 
 const app = express();
 app.use(express.json());
