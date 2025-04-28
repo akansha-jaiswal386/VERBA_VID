@@ -1,26 +1,14 @@
 {
-<<<<<<< HEAD
-  "promptText": "Here are six short, creative TikTok captions for the given prompt (which is a PDF file header and some data), playing on the mystery and unexpectedness:\n\n1. **PDF found! 🕵️‍♀️ What secrets does this file hold? #pdfmystery #digitaldetective** (Plays on mystery)\n2. **Decoding the digital age, one byte at a time.  🤯 #pdflife #techtok** (Highlights the tech aspect)\n3. **Is this a hidden message? 🤔  Let's crack the code! #codedmessages #mystery** (Focuses on code)\n4. **From PDF to...what?!  This is weirder than I expected.  😅 #unexpected #pdf** (Highlights unexpected content)\n5. **Binary code got me like...😵‍💫  Anyone know what this is? #binarycode #helpme** (Asks for help)\n6. **This PDF is *sus*. 🤨 What's inside?  #sus #pdf #mystery**  (Uses trendy slang)\n\n\nThese captions aim for a balance of intrigue, humor, and relevant hashtags to boost visibility on TikTok.  Remember to add a visually engaging video to accompany the caption.\n",
+  "promptText": "Data is everywhere.\nInformation needs organization.\nDatabases store information.\nSQL queries retrieve data.\nData analysis reveals insights.\nVisualization makes data clear.\nBig data requires big tools.\nAI enhances data analysis.",
   "durationInFrames": 720,
   "images": [
-    "https://images.pexels.com/photos/30770285/pexels-photo-30770285.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/17281161/pexels-photo-17281161.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6254945/pexels-photo-6254945.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/18471817/pexels-photo-18471817.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/10033194/pexels-photo-10033194.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/7676823/pexels-photo-7676823.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-=======
-  "promptText": "PDF version 1.4 used.\nCreated with Canva.\nAuthor: Ashfaque Ahmad.\nResume metadata included.\nLinks embedded in document.\nMultiple projects detailed.\nTechnical skills listed.\nEducation history provided.",
-  "durationInFrames": 720,
-  "images": [
-    "https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/31757537/pexels-photo-31757537.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/256453/pexels-photo-256453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/5922204/pexels-photo-5922204.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/8715906/pexels-photo-8715906.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/4959746/pexels-photo-4959746.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/9242905/pexels-photo-9242905.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/31783746/pexels-photo-31783746.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
->>>>>>> 28d358eaf676c3d857b31a658d4ee5ee2dacc9cb
+    "https://images.pexels.com/photos/17485819/pexels-photo-17485819.png?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6981177/pexels-photo-6981177.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7679733/pexels-photo-7679733.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7948086/pexels-photo-7948086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/18069239/pexels-photo-18069239.png?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/28843213/pexels-photo-28843213.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/8877091/pexels-photo-8877091.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   ]
 }

@@ -7,12 +7,14 @@ export default function VideoGenerator() {
   const [videoPath, setVideoPath] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const handleClear = () => {
     setPrompt("");
     setDocumentFile(null);
     setVideoPath("");
     setError("");
+    setPreviewUrl("");
   };
 
   const handleGenerate = async () => {
@@ -24,6 +26,7 @@ export default function VideoGenerator() {
     setLoading(true);
     setError("");
     setVideoPath("");
+    setPreviewUrl("");
 
     try {
       let response;
@@ -64,13 +67,45 @@ export default function VideoGenerator() {
     }
   };
 
+  const handleDownload = async () => {
+    if (!videoPath) {
+      setError("No video available for download!");
+      return;
+    }
+
+    try {
+      console.log("🚀 Fetching video for download from backend...");
+      const response = await fetch(`http://localhost:8000/download-video?videoUrl=${videoPath}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch video for download.");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a temporary anchor element to trigger the download
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "video.mp4"; // Set the file name for the download
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      window.URL.revokeObjectURL(url); // Clean up the URL object
+    } catch (err) {
+      console.error("❌ Error downloading video:", err);
+      setError("Failed to download video. Please check backend logs.");
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-white p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
         {/* Left Section */}
         <div>
-          <h1 className="text-3xl font-bold text-black">Create  Videos with Gemini AI</h1>
-          <p className="text-gray-600 mt-2">Generate captivating  videos based on your prompts or document uploads.</p>
+          <h1 className="text-3xl font-bold text-black">Create Videos with Gemini AI</h1>
+          <p className="text-gray-600 mt-2">Generate captivating videos based on your prompts or document uploads.</p>
           <input
             type="text"
             value={prompt}
@@ -101,15 +136,23 @@ export default function VideoGenerator() {
           </div>
         </div>
 
-        {/* Right Section - Video Preview */}
+        {/* Right Section - Video Download */}
         <div className="bg-gray-200 w-full h-64 flex items-center justify-center rounded">
           {videoPath ? (
-            <video controls width="100%" className="rounded">
-              <source src={`http://localhost:5000${videoPath}`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <div className="w-full">
+              <video controls width="100%" className="rounded">
+                <source src={`http://localhost:5000${videoPath}`} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <button
+                onClick={handleDownload}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+              >
+                Download
+              </button>
+            </div>
           ) : (
-            <span className="text-gray-500">{loading ? "Processing..." : "Video Preview"}</span>
+            <span className="text-gray-500">{loading ? "Processing..." : "Video Download"}</span>
           )}
         </div>
       </div>
