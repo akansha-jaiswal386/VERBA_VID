@@ -1,13 +1,13 @@
 {
-  "promptText": "PDF version 1.7\nCatalog: Document structure\nPages: Contains page objects\nFonts: Define text appearance\nResources: Shared document elements\nTransparency: Blending and effects\nMetadata: Document information",
+  "promptText": "PDF version 1.7\nCatalog: File structure's root\nPages: Contains document pages\nFonts: Calibri, Arial included\nResources:  Embedded fonts and graphics\nTransparency:  Supports layered effects\nMetadata: Author and creation info",
   "durationInFrames": 630,
   "images": [
     "https://images.pexels.com/photos/6927553/pexels-photo-6927553.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6800928/pexels-photo-6800928.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/7351839/pexels-photo-7351839.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6538582/pexels-photo-6538582.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/2203051/pexels-photo-2203051.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     "https://images.pexels.com/photos/2928254/pexels-photo-2928254.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/8947773/pexels-photo-8947773.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/11257154/pexels-photo-11257154.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/2067569/pexels-photo-2067569.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    "https://images.pexels.com/photos/8327811/pexels-photo-8327811.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6586261/pexels-photo-6586261.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6878176/pexels-photo-6878176.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   ]
 }
