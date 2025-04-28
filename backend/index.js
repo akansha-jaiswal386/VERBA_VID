@@ -159,7 +159,7 @@ async function generateVideo(promptText) {
 
     // Execute Remotion render
     const remotionProjectPath = path.join(__dirname, "video_generator");
-    const command = cd `${remotionProjectPath} && npx remotion render src/index.ts CaptionedVideo "../videos/output.mp4" --props="../videos/props.json"`;
+    const command = `cd ${remotionProjectPath} && npx remotion render src/index.ts CaptionedVideo "../videos/output.mp4" --props="../videos/props.json"`;
 
     await execAsync(command);
     console.log("🎬 Video rendering complete!");
