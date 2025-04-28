@@ -1,14 +1,13 @@
 {
-  "promptText": "Data is everywhere.\nInformation needs organization.\nDatabases store information.\nSQL queries retrieve data.\nData analysis reveals insights.\nVisualization makes data clear.\nBig data requires big tools.\nAI enhances data analysis.",
-  "durationInFrames": 720,
+  "promptText": "PDF version 1.7\nCatalog: Document structure\nPages: Contains page objects\nFonts: Define text appearance\nResources: Shared document elements\nTransparency: Blending and effects\nMetadata: Document information",
+  "durationInFrames": 630,
   "images": [
-    "https://images.pexels.com/photos/17485819/pexels-photo-17485819.png?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6981177/pexels-photo-6981177.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/7679733/pexels-photo-7679733.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/3861976/pexels-photo-3861976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/7948086/pexels-photo-7948086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/18069239/pexels-photo-18069239.png?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/28843213/pexels-photo-28843213.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/8877091/pexels-photo-8877091.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    "https://images.pexels.com/photos/6927553/pexels-photo-6927553.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6800928/pexels-photo-6800928.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7351839/pexels-photo-7351839.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/2928254/pexels-photo-2928254.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/8947773/pexels-photo-8947773.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/11257154/pexels-photo-11257154.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/2067569/pexels-photo-2067569.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   ]
 }

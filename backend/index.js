@@ -11,7 +11,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const execAsync = util.promisify(exec);
 require('./connection.js'); 
 const cloudinaryRoutes = require("./cloudin_ary.js");
-import { v2 as cloudinary } from 'cloudinary';
+const cloudinary = require("cloudinary").v2;
 
 
 
@@ -126,7 +126,7 @@ async function generateVideo(promptText) {
 
     // Get all caption lines
     const lines = generatedCaptionText.split("\n").filter(line => line.trim() !== "");
-
+    
     // Clean up the captions to make better search queries
     const searchQueries = lines.map(line => {
       // Remove hashtags, emojis, and special characters
@@ -159,22 +159,12 @@ async function generateVideo(promptText) {
 
     // Execute Remotion render
     const remotionProjectPath = path.join(__dirname, "video_generator");
-    const command = `cd ${remotionProjectPath} && npx remotion render src/index.ts CaptionedVideo "../videos/output.mp4" --props="../videos/props.json"`;
+    const command = cd `${remotionProjectPath} && npx remotion render src/index.ts CaptionedVideo "../videos/output.mp4" --props="../videos/props.json"`;
 
     await execAsync(command);
     console.log("🎬 Video rendering complete!");
 
-    // Upload the rendered video to Cloudinary
-    const outputVideoPath = path.join(__dirname, "videos", "output.mp4");
-    const cloudinaryResult = await cloudinary.uploader.upload(outputVideoPath, {
-      resource_type: "video",
-      folder: "generated_videos", // Specify the folder in Cloudinary
-    });
-
-    console.log("☁️ Video uploaded to Cloudinary:", cloudinaryResult.secure_url);
-
-    // Return the Cloudinary URL
-    return cloudinaryResult.secure_url;
+    return "/videos/output.mp4";
   } catch (error) {
     console.error("❌ Error generating video:", error);
     throw error;
@@ -187,25 +177,10 @@ app.post("/render-video", async (req, res) => {
     const { userPrompt } = req.body;
     if (!userPrompt) return res.status(400).json({ error: "No userPrompt provided." });
 
-    const cloudinaryUrl = await generateVideo(userPrompt);
-    return res.json({ message: "🎉 Video rendered successfully!", videoUrl: cloudinaryUrl });
+    const outputPath = await generateVideo(userPrompt);
+    return res.json({ message: "🎉 Video rendered successfully!", outputPath });
   } catch (err) {
     res.status(500).json({ error: "Internal server error", details: err.message });
-  }
-});
-
-// API to render video from document upload
-app.post("/render-video-document", upload.single("document"), async (req, res) => {
-  if (!req.file) return res.status(400).json({ error: "No document uploaded." });
-
-  try {
-    // Read the uploaded document (assuming it's a text file)
-    const documentText = fs.readFileSync(req.file.path, "utf-8");
-
-    const cloudinaryUrl = await generateVideo(documentText);
-    return res.json({ message: "🎉 Video rendered successfully!", videoUrl: cloudinaryUrl });
-  } catch (err) {
-    return res.status(500).json({ error: "Failed to process document.", details: err.message });
   }
 });
 
