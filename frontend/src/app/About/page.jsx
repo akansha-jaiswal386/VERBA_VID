@@ -2,109 +2,216 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { FaBrain, FaFilm, FaDownload, FaUsers } from "react-icons/fa";
+import { FaBrain, FaFilm, FaDownload, FaUsers, FaPenAlt, FaPalette, FaMagic, FaCloudDownloadAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
-const About= () => {
+const About = () => {
+  const router = useRouter();
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen">
+    <div className="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen overflow-hidden">
       {/* Hero Section */}
-      <section className="text-center py-20 px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+      <section className="text-center py-20 md:py-32 px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-bold mb-4"
+          className="max-w-4xl mx-auto"
         >
-          Turn Words into Cinematic Magic
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-xl text-gray-300 mb-8"
-        >
-          Your imagination, our animation.
-        </motion.p>
-        <Button className="text-lg px-6 py-3">Try It Now</Button>
+          <motion.h1
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+          >
+            Turn Words into Cinematic Magic
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 md:mb-10"
+          >
+            Your imagination, our animation.
+          </motion.p>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button className="text-base sm:text-lg px-6 py-4 sm:px-8 sm:py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-lg">
+              Try It Now
+            </Button>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* What We Do */}
-      <section className="py-16 px-6 bg-black">
+      <section className="py-16 md:py-24 px-4 sm:px-6 bg-black/50">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="max-w-4xl mx-auto text-center"
+          initial="hidden"
+          whileInView="visible"
+          variants={staggerContainer}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto text-center"
         >
-          <h2 className="text-3xl font-semibold mb-4">What is Text2Vidz?</h2>
-          <p className="text-gray-400 text-lg">
-            We turn your scripts into beautiful, AI-generated videos with just a few clicks.
-          </p>
+          <motion.h2 
+            variants={fadeInUp}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6"
+          >
+            What is <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">VerbaVid?</span>?
+          </motion.h2>
+          <motion.p 
+            variants={fadeInUp}
+            className="text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed"
+          >
+            We transform your scripts into stunning, AI-generated videos with just a few clicks. 
+            Our advanced technology brings your words to life with cinematic quality.
+          </motion.p>
         </motion.div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 text-center">
-          {["Write", "Style", "Generate", "Download"].map((step, index) => (
-            <motion.div
-              key={step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 + index * 0.2 }}
-              className="bg-gray-800 p-6 rounded-2xl shadow-lg"
-            >
-              <h3 className="text-xl font-bold mb-2">{step}</h3>
-              <p className="text-gray-400 text-sm">
-                {step === "Write" && "Type your script or idea."}
-                {step === "Style" && "Choose a visual style you like."}
-                {step === "Generate" && "Let AI create your video."}
-                {step === "Download" && "Save and share with the world."}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+      <section className="py-16 md:py-24 px-4 sm:px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={staggerContainer}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto"
+        >
+          <motion.h2 
+            variants={fadeInUp}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 md:mb-16 text-center"
+          >
+            How It <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Works</span>
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 text-center">
+            {[ 
+              { icon: <FaPenAlt className="mx-auto" size={32} />, label: "Write", desc: "Type your script or idea." },
+              { icon: <FaPalette className="mx-auto" size={32} />, label: "Style", desc: "Choose a visual style you like." },
+              { icon: <FaMagic className="mx-auto" size={32} />, label: "Generate", desc: "Let AI create your video." },
+              { icon: <FaCloudDownloadAlt className="mx-auto" size={32} />, label: "Download", desc: "Save and share with the world." },
+            ].map((step, index) => (
+              <motion.div
+                key={step.label}
+                variants={fadeInUp}
+                whileHover={{ y: -10 }}
+                className="bg-gray-800/50 p-6 md:p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-purple-500 transition-all"
+              >
+                <motion.div 
+                  animate={{ 
+                    y: [0, -10, 0],
+                    transition: { 
+                      duration: 3, 
+                      repeat: Infinity,
+                      delay: index * 0.3
+                    } 
+                  }}
+                  className="text-primary mb-4 md:mb-6 flex justify-center"
+                >
+                  {step.icon}
+                </motion.div>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">{step.label}</h3>
+                <p className="text-sm md:text-base text-gray-400">
+                  {step.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* Why Choose Us */}
-      <section className="bg-black py-20 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
-          {[
-            { icon: <FaBrain />, label: "Smart AI" },
-            { icon: <FaFilm />, label: "Creative Styles" },
-            { icon: <FaDownload />, label: "Instant Export" },
-            { icon: <FaUsers />, label: "Made for Everyone" },
-          ].map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 + i * 0.2 }}
-              className="bg-gray-800 p-6 rounded-2xl text-center shadow-md"
-            >
-              <div className="text-3xl mb-3 text-primary">{item.icon}</div>
-              <h4 className="text-xl font-semibold text-white">{item.label}</h4>
-            </motion.div>
-          ))}
-        </div>
+      <section className="bg-black/50 py-16 md:py-24 px-4 sm:px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={staggerContainer}
+          viewport={{ once: true }}
+          className="max-w-6xl mx-auto"
+        >
+          <motion.h2 
+            variants={fadeInUp}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 md:mb-16 text-center"
+          >
+            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Us</span>
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {[ 
+              { icon: <FaBrain size={28} />, label: "Smart AI", desc: "Advanced algorithms for stunning results" },
+              { icon: <FaFilm size={28} />, label: "Creative Styles", desc: "Diverse visual themes to match your vision" },
+              { icon: <FaDownload size={28} />, label: "Instant Export", desc: "Quick rendering and download options" },
+              { icon: <FaUsers size={28} />, label: "Made for Everyone", desc: "No technical skills required" },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                variants={fadeInUp}
+                whileHover={{ scale: 1.05 }}
+                className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 md:p-8 rounded-2xl text-center shadow-2xl border border-gray-700"
+              >
+                <div className="text-3xl md:text-4xl mb-4 md:mb-6 text-primary flex justify-center">
+                  {item.icon}
+                </div>
+                <h4 className="text-xl md:text-2xl font-semibold text-white mb-2 md:mb-3">{item.label}</h4>
+                <p className="text-sm md:text-base text-gray-400">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* Contact CTA */}
-      <section className="text-center py-20 px-6">
-        <motion.h2
+      <section className="text-center py-20 md:py-32 px-4 sm:px-6">
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="text-3xl md:text-4xl font-bold mb-4"
+          className="max-w-4xl mx-auto"
         >
-          Ready to Create?
-        </motion.h2>
-        <p className="text-gray-300 mb-6 text-lg">
-          Contact us and let’s bring your vision to life.
-        </p>
-        <Button className="text-lg px-6 py-3">Contact Us</Button>
+          <motion.h2
+            initial={{ scale: 0.9 }}
+            whileInView={{ scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6"
+          >
+            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Create</span>?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 md:mb-10"
+          >
+            Contact us and let's bring your vision to life.
+          </motion.p>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button className="text-base sm:text-lg px-8 py-4 md:px-10 md:py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-xl" onClick={() => router.push("/Contact")}>
+              Contact Us
+            </Button>
+          </motion.div>
+        </motion.div>
       </section>
+
+      
     </div>
   );
 };

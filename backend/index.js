@@ -9,7 +9,8 @@ const multer = require("multer");
 const axios = require("axios");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const execAsync = util.promisify(exec);
-require('./connection.js'); 
+require('./connection.js');
+const userRouter = require("./Routes/userRouter.js"); 
 
 
 
@@ -19,6 +20,8 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use("/videos", express.static(path.join(__dirname, "videos")));
+app.use("/api", userRouter);
+
 
 
 // Ensure API keys are set

@@ -1,13 +1,12 @@
 {
-  "promptText": "PDF version 1.7\nCatalog: File structure's root\nPages: Contains document pages\nFonts: Calibri, Arial included\nResources:  Embedded fonts and graphics\nTransparency:  Supports layered effects\nMetadata: Author and creation info",
-  "durationInFrames": 630,
+  "promptText": "%PDF-1.7:  The file format.\nCatalog:  Organizes the PDF's structure.\nPages: Contains all document pages.\nResources:  Fonts, images, and other assets.\nFonts: Defines text appearance.\nContent Streams:  Page visual data.",
+  "durationInFrames": 540,
   "images": [
-    "https://images.pexels.com/photos/6927553/pexels-photo-6927553.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6538582/pexels-photo-6538582.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7821927/pexels-photo-7821927.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/20688048/pexels-photo-20688048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     "https://images.pexels.com/photos/2203051/pexels-photo-2203051.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6981174/pexels-photo-6981174.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     "https://images.pexels.com/photos/2928254/pexels-photo-2928254.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/8327811/pexels-photo-8327811.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6586261/pexels-photo-6586261.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6878176/pexels-photo-6878176.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    "https://images.pexels.com/photos/6214882/pexels-photo-6214882.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   ]
 }
