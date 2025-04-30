@@ -1,12 +1,15 @@
 {
-  "promptText": "%PDF-1.7:  The file format.\nCatalog:  Organizes the PDF's structure.\nPages: Contains all document pages.\nResources:  Fonts, images, and other assets.\nFonts: Defines text appearance.\nContent Streams:  Page visual data.",
-  "durationInFrames": 540,
+  "promptText": "Here are some educational captions based on the provided PDF metadata, keeping them short and engaging:\n1. PDF version 1.7:  The latest standard.\n2. Catalog:  The main PDF document structure.\n3. Pages:  Where the content resides.\n4. Fonts: Calibri, Arial used.\n5. Resources: Essential elements of a PDF.\n6. Metadata: Author and creation date.\n7. Transparency & Layers: Supported features.\n8. Encryption?  Check the file properties!",
+  "durationInFrames": 810,
   "images": [
-    "https://images.pexels.com/photos/7821927/pexels-photo-7821927.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/20688048/pexels-photo-20688048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/2203051/pexels-photo-2203051.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6981174/pexels-photo-6981174.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/2928254/pexels-photo-2928254.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6214882/pexels-photo-6214882.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    "https://images.pexels.com/photos/6692959/pexels-photo-6692959.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/11645806/pexels-photo-11645806.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6800928/pexels-photo-6800928.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/5418515/pexels-photo-5418515.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6628482/pexels-photo-6628482.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/9574508/pexels-photo-9574508.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6047794/pexels-photo-6047794.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7319084/pexels-photo-7319084.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   ]
 }

@@ -288,7 +288,7 @@ export default function HomePage() {
         >
           <motion.button 
             className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/30 transition-all"
-            onClick={() => router.push("/CreateVid")}
+            onClick={() => router.push("/user/video-generator")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -316,7 +316,7 @@ export default function HomePage() {
           transition={{ delay: 1.1 }}
         >
           {[
-            { value: "10,000+", label: "Videos Created" },
+            { value: "1000+", label: "Videos Created" },
             { value: "50+", label: "Templates" },
             { value: "4K", label: "Resolution" },
             { value: "AI", label: "Powered" }
