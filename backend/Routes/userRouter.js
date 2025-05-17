@@ -1,14 +1,36 @@
 const express = require("express");
-const { signup, updateUser, deleteUser, logout, login } = require("../Controllers/authController.js");
+const { 
+  signup, 
+  updateUser, 
+  deleteUser, 
+  logout, 
+  login, 
+  updateProfile,
+  forgotPassword,
+  resetPassword,
+  getAllUsers 
+} = require("../Controllers/authController.js");
 const { loginvalidation, signupvalidation } = require("../Middleware/Authentication.js");
+  // Middleware to verify the token
+ 
+const authenticate = require('../Middleware/verifyToken.js'); 
+
+// Route to get videos for a specific user
 
 // userRouter.js
 const router = express.Router();
 
+// Public routes
 router.post('/signup', signupvalidation, signup);
-router.put('/update/:id', signupvalidation, updateUser);
-router.delete('/delete/:id', signupvalidation, deleteUser);
 router.post("/login", loginvalidation, login);
-router.post("/logout", logout);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
+
+// Protected routes
+router.get('/users', authenticate, getAllUsers);
+router.put('/update/:id', authenticate, signupvalidation, updateUser);
+router.delete('/delete/:id', authenticate, signupvalidation, deleteUser);
+router.post("/logout", authenticate, logout);
+router.put('/profile', authenticate, updateProfile);
 
 module.exports = router;

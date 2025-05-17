@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +7,7 @@ import { Eye, EyeOff, ArrowRight, Loader2, User, Mail, Lock, AlertCircle } from 
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 const SignupSchema = Yup.object({
   name: Yup.string()
@@ -73,6 +74,14 @@ const Signup = () => {
     setPasswordStrength(calculatePasswordStrength(e.target.value));
   };
 
+  useEffect(() => {
+    // Handle any cleanup or state changes after form submission
+    if (!isSubmitting) {
+      // Ensure no re-rendering happens after submission
+      return;
+    }
+  }, [isSubmitting]);
+
   return (
     <section className="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-black to-gray-900 p-4">
       <motion.div
@@ -122,11 +131,10 @@ const Signup = () => {
               type="text"
               name="name"
               placeholder="John Doe"
-              className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                formik.touched.name && formik.errors.name
-                  ? "border-red-500 focus:ring-red-500/30"
-                  : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
-              }`}
+              className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${formik.touched.name && formik.errors.name
+                ? "border-red-500 focus:ring-red-500/30"
+                : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
+                }`}
               {...formik.getFieldProps("name")}
             />
             <AnimatePresence>
@@ -156,11 +164,10 @@ const Signup = () => {
               type="email"
               name="email"
               placeholder="your@email.com"
-              className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                formik.touched.email && formik.errors.email
-                  ? "border-red-500 focus:ring-red-500/30"
-                  : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
-              }`}
+              className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${formik.touched.email && formik.errors.email
+                ? "border-red-500 focus:ring-red-500/30"
+                : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
+                }`}
               {...formik.getFieldProps("email")}
             />
             <AnimatePresence>
@@ -191,11 +198,10 @@ const Signup = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="••••••••"
-                className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                  formik.touched.password && formik.errors.password
-                    ? "border-red-500 focus:ring-red-500/30"
-                    : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
-                }`}
+                className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${formik.touched.password && formik.errors.password
+                  ? "border-red-500 focus:ring-red-500/30"
+                  : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
+                  }`}
                 onChange={handlePasswordChange}
                 value={formik.values.password}
                 onBlur={formik.handleBlur}
@@ -208,34 +214,6 @@ const Signup = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            
-            {/* Password Strength Meter */}
-            {formik.values.password && (
-              <div className="mt-2">
-                <div className="flex gap-1 h-1.5 mb-1">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div 
-                      key={i}
-                      className={`flex-1 rounded-full ${
-                        passwordStrength >= i
-                          ? i <= 1 ? "bg-red-500" 
-                          : i === 2 ? "bg-yellow-500" 
-                          : i === 3 ? "bg-blue-500" 
-                          : "bg-emerald-500"
-                          : "bg-gray-600"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <p className="text-xs text-gray-400">
-                  Strength: {passwordStrength === 0 ? "Very weak" :
-                            passwordStrength === 1 ? "Weak" :
-                            passwordStrength === 2 ? "Moderate" :
-                            passwordStrength === 3 ? "Strong" : "Very strong"}
-                </p>
-              </div>
-            )}
-            
             <AnimatePresence>
               {formik.touched.password && formik.errors.password && (
                 <motion.p
@@ -264,11 +242,10 @@ const Signup = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder="••••••••"
-                className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${
-                  formik.touched.confirmPassword && formik.errors.confirmPassword
-                    ? "border-red-500 focus:ring-red-500/30"
-                    : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
-                }`}
+                className={`w-full px-4 py-3 bg-gray-700 text-white border rounded-lg focus:outline-none focus:ring-2 transition-all ${formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? "border-red-500 focus:ring-red-500/30"
+                  : "border-gray-600 focus:ring-emerald-500/30 focus:border-emerald-500"
+                  }`}
                 {...formik.getFieldProps("confirmPassword")}
               />
               <button
@@ -293,85 +270,47 @@ const Signup = () => {
             </AnimatePresence>
           </motion.div>
 
-          {/* Terms Checkbox */}
+          {/* Submit Button */}
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 transition-all ${isSubmitting
+              ? "bg-emerald-700 cursor-not-allowed"
+              : "bg-emerald-600 hover:bg-emerald-500 shadow-lg hover:shadow-emerald-500/20"
+              }`}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="animate-spin" size={20} />
+                <span>Creating Account...</span>
+              </>
+            ) : (
+              <>
+                <span>Sign Up</span>
+                <ArrowRight size={18} />
+              </>
+            )}
+          </motion.button>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="flex items-start"
+            className="text-center pt-4"
           >
-            <input
-              type="checkbox"
-              id="terms"
-              className="mt-1 mr-2 accent-emerald-500"
-              required
-            />
-            <label htmlFor="terms" className="text-sm text-gray-400">
-              I agree to the <a href="#" className="text-emerald-400 hover:underline">Terms of Service</a> and <a href="#" className="text-emerald-400 hover:underline">Privacy Policy</a>
-            </label>
-          </motion.div>
-
-          {/* Submit Button */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 transition-all ${
-                isSubmitting
-                  ? "bg-emerald-700 cursor-not-allowed"
-                  : "bg-emerald-600 hover:bg-emerald-500 shadow-lg hover:shadow-emerald-500/20"
-              }`}
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="animate-spin" size={20} />
-                  <span>Creating Account...</span>
-                </>
-              ) : (
-                <>
-                  <span>Sign Up</span>
-                  <ArrowRight size={18} />
-                </>
-              )}
-            </button>
+            <p className="text-gray-400">
+              Already have an account?{' '}
+              <Link 
+                href="/login" 
+                className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+              >
+                Log in here
+              </Link>
+            </p>
           </motion.div>
         </form>
-
-        {/* Divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.1 }}
-          className="flex items-center my-6"
-        >
-          <div className="flex-1 border-t border-gray-700"></div>
-          <span className="px-4 text-gray-500 text-sm">OR</span>
-          <div className="flex-1 border-t border-gray-700"></div>
-        </motion.div>
-
-        {/* Login Link */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="text-center"
-        >
-          <p className="text-gray-400">
-            Already have an account?{" "}
-            <a 
-              href="/login" 
-              className="text-emerald-400 font-medium hover:underline hover:text-emerald-300"
-            >
-              Log in
-            </a>
-          </p>
-        </motion.div>
       </motion.div>
     </section>
+    
   );
 };
 

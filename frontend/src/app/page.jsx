@@ -10,6 +10,7 @@ const Page = () => {
     
       
       <div >
+      
         <Navbar></Navbar>
         <HomePage></HomePage>
         <About></About>

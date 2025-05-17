@@ -1,14 +1,27 @@
 {
-  "promptText": "PDF version 1.7 identified.\nFile contains 3 pages.\nUses multiple fonts and images.\nEmbedded in the document are images.\nIncludes transparency features.\nText uses TrueType fonts.\nUses both CID and TrueType fonts.\nMetadata includes creation and modification dates.",
-  "durationInFrames": 720,
+  "promptText": "The document's content is primarily text, created in Microsoft Word.\nThe author of the document is Siddharth Verma.\nThe document was created and modified on September 26, 2024.\nThe text uses Calibri and Arial fonts, both regular and bold.\nMultiple font sizes and styles are present in the text.\nThe document's text is largely unreadable due to compression.",
+  "durationInFrames": 288,
   "images": [
-    "https://images.pexels.com/photos/6927553/pexels-photo-6927553.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/7969728/pexels-photo-7969728.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/5789939/pexels-photo-5789939.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/8715906/pexels-photo-8715906.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6338389/pexels-photo-6338389.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/2928254/pexels-photo-2928254.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/2928254/pexels-photo-2928254.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/7668396/pexels-photo-7668396.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-  ]
+    "https://images.pexels.com/photos/4106706/pexels-photo-4106706.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6980355/pexels-photo-6980355.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/32105399/pexels-photo-32105399.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/5238645/pexels-photo-5238645.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/21391578/pexels-photo-21391578.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6863321/pexels-photo-6863321.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+  ],
+  "textForSpeech": [
+    "The document's content is primarily text, created in Microsoft Word.",
+    "The author of the document is Siddharth Verma.",
+    "The document was created and modified on September 26, 2024.",
+    "The text uses Calibri and Arial fonts, both regular and bold.",
+    "Multiple font sizes and styles are present in the text.",
+    "The document's text is largely unreadable due to compression."
+  ],
+  "sourceType": "PDF",
+  "templateName": "modern",
+  "orientation": "portrait",
+  "videoLength": "short",
+  "framesPerCaption": 48,
+  "exactContentDuration": true,
+  "shouldLoop": false
 }

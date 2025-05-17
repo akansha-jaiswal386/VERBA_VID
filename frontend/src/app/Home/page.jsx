@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
-import { 
-  FileText, File, FilePlus, FileEdit, FileSearch, 
+import {
+  FileText, File, FilePlus, FileEdit, FileSearch,
   FileInput, FileOutput, FileCode, FileImage, FileArchive,
   Sparkles, Wand2, Video, PlayCircle, ArrowRight
 } from "lucide-react";
@@ -40,6 +40,20 @@ export default function HomePage() {
   const [hoveredDoc, setHoveredDoc] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
   const [particles, setParticles] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setIsLoggedIn(!!user);
+  }, []);
+
+  const handleGetStartedClick = () => {
+    if (!isLoggedIn) {
+      router.push("/login");
+    } else {
+      router.push("/user/video-generator");
+    }
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -107,6 +121,7 @@ export default function HomePage() {
     return () => clearTimeout(timeoutId);
   }, [charIndex, index, isDeleting, texts]);
 
+  
   return (
     <div
       className="relative w-full min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden"
@@ -193,7 +208,7 @@ export default function HomePage() {
         >
           <motion.button
             className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/30 transition-all"
-            onClick={() => router.push("/user/video-generator")}
+            onClick={() => handleGetStartedClick()}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

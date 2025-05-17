@@ -1,0 +1,37 @@
+{
+  "promptText": "Nifty50: Strong Buy recommendations.\nStock Reports Plus: May 12, 2025 data.\nIBES: Actionable analyst insights.\nStrong Buy: Highest buy rating.\nBuy rating: Positive market outlook.\nAnalyst recommendations: Expert opinions.\nInstitutional Brokers:  Informed predictions.\nActionable insights:  Invest wisely.\nNifty50 index: Top Indian stocks.\nStock selection: Data-driven choices.\nInvestment decisions: Use expert advice.",
+  "durationInFrames": 528,
+  "images": [
+    "https://images.pexels.com/photos/7148521/pexels-photo-7148521.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/5716034/pexels-photo-5716034.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7567550/pexels-photo-7567550.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/5625115/pexels-photo-5625115.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/5709267/pexels-photo-5709267.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/9769128/pexels-photo-9769128.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/6550460/pexels-photo-6550460.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7948086/pexels-photo-7948086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/8722166/pexels-photo-8722166.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7679461/pexels-photo-7679461.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7642031/pexels-photo-7642031.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+  ],
+  "textForSpeech": [
+    "Nifty50: Strong Buy recommendations.",
+    "Stock Reports Plus: May 12, 2025 data.",
+    "IBES: Actionable analyst insights.",
+    "Strong Buy: Highest buy rating.",
+    "Buy rating: Positive market outlook.",
+    "Analyst recommendations: Expert opinions.",
+    "Institutional Brokers:  Informed predictions.",
+    "Actionable insights:  Invest wisely.",
+    "Nifty50 index: Top Indian stocks.",
+    "Stock selection: Data-driven choices.",
+    "Investment decisions: Use expert advice."
+  ],
+  "sourceType": "text",
+  "templateName": "modern",
+  "orientation": "portrait",
+  "videoLength": "short",
+  "framesPerCaption": 48,
+  "exactContentDuration": true,
+  "shouldLoop": false
+}
