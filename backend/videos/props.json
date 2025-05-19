@@ -1,21 +1,25 @@
 {
-  "promptText": "The document's content is primarily text, created in Microsoft Word.\nThe author of the document is Siddharth Verma.\nThe document was created and modified on September 26, 2024.\nThe text uses Calibri and Arial fonts, both regular and bold.\nMultiple font sizes and styles are present in the text.\nThe document's text is largely unreadable due to compression.",
-  "durationInFrames": 288,
+  "promptText": "Verbavid project report for BCA (DS & AI) degree.\nAkansha Jaiswal's project at Digipodium.\nProject fulfills BCA degree requirements.\nFocuses on Verbavid's needs, challenges, and solutions.\nIncludes feasibility study, system design, and testing.\nUML diagrams illustrate high-level design.\nData dictionary details low-level design.\nProject conclusion and future scope outlined.",
+  "durationInFrames": 384,
   "images": [
-    "https://images.pexels.com/photos/4106706/pexels-photo-4106706.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6980355/pexels-photo-6980355.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/32105399/pexels-photo-32105399.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/5238645/pexels-photo-5238645.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/21391578/pexels-photo-21391578.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "https://images.pexels.com/photos/6863321/pexels-photo-6863321.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    "https://images.pexels.com/photos/3810792/pexels-photo-3810792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/32141074/pexels-photo-32141074.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7723833/pexels-photo-7723833.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7203955/pexels-photo-7203955.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/3781346/pexels-photo-3781346.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/8327811/pexels-photo-8327811.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/18068746/pexels-photo-18068746.png?auto=compress&cs=tinysrgb&h=650&w=940",
+    "https://images.pexels.com/photos/7550888/pexels-photo-7550888.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
   ],
   "textForSpeech": [
-    "The document's content is primarily text, created in Microsoft Word.",
-    "The author of the document is Siddharth Verma.",
-    "The document was created and modified on September 26, 2024.",
-    "The text uses Calibri and Arial fonts, both regular and bold.",
-    "Multiple font sizes and styles are present in the text.",
-    "The document's text is largely unreadable due to compression."
+    "Verbavid project report for BCA (DS & AI) degree.",
+    "Akansha Jaiswal's project at Digipodium.",
+    "Project fulfills BCA degree requirements.",
+    "Focuses on Verbavid's needs, challenges, and solutions.",
+    "Includes feasibility study, system design, and testing.",
+    "UML diagrams illustrate high-level design.",
+    "Data dictionary details low-level design.",
+    "Project conclusion and future scope outlined."
   ],
   "sourceType": "PDF",
   "templateName": "modern",

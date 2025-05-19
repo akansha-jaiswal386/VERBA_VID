@@ -8,6 +8,7 @@ const util = require("util");
 const multer = require("multer");
 const axios = require("axios");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const pdfParse = require('pdf-parse');
 const execAsync = util.promisify(exec);
 const writeFileAsync = util.promisify(fs.writeFile);
 const mkdirAsync = util.promisify(fs.mkdir);
@@ -437,11 +438,22 @@ app.post("/render-video-document", upload.single("document"), async (req, res) =
   if (!req.file) return res.status(400).json({ error: "No document uploaded." });
 
   try {
-    // Read the uploaded document
-    const documentText = fs.readFileSync(req.file.path, "utf-8");
-    
-    // Check if it's a PDF by filename
+    let documentText;
     const isPDF = req.file.originalname.toLowerCase().endsWith('.pdf');
+    
+    if (isPDF) {
+      // Read PDF file as buffer
+      const dataBuffer = fs.readFileSync(req.file.path);
+      
+      // Extract text from PDF
+      const pdfData = await pdfParse(dataBuffer);
+      documentText = pdfData.text;
+      
+      console.log(`📄 Extracted ${documentText.length} characters from PDF`);
+    } else {
+      // Read text file
+      documentText = fs.readFileSync(req.file.path, "utf-8");
+    }
     
     // Get template from form data
     const template = req.body.template || "modern";
@@ -474,6 +486,7 @@ app.post("/render-video-document", upload.single("document"), async (req, res) =
       note 
     });
   } catch (err) {
+    console.error("Error processing document:", err);
     return res.status(500).json({ error: "Failed to process document.", details: err.message });
   }
 });

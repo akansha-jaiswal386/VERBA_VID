@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from '@/context/AuthContext';
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Upload, FileText, Wand2, Download, Star, Youtube, Instagram, Facebook, Share2, Twitter, Music } from "lucide-react";
+import { Sparkles, Upload, FileText, Wand2, Download, Star, Youtube, Instagram, Facebook, Share2, Twitter, Music, MessageCircle } from "lucide-react";
 
 // Constants
 const TEMPLATES = [
@@ -67,7 +67,7 @@ export default function TikTokVideoGenerator() {
 
   const videoRef = useRef(null);
   const speechSynthesisRef = useRef(null);
-  const speechEndTimeRef = useRef(null);
+  const currentUtteranceRef = useRef(null);
 
   // Setup speech synthesis
   useEffect(() => {
@@ -81,51 +81,57 @@ export default function TikTokVideoGenerator() {
     };
   }, []);
 
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    const handleTimeUpdate = () => {
-      if (!videoElement) return;
-      const timeLeft = videoElement.duration - videoElement.currentTime;
-      if ((timeLeft < 1) || (speechEndTimeRef.current && videoElement.currentTime >= speechEndTimeRef.current)) {
-        speechSynthesisRef.current?.cancel();
-      }
-    };
+  const speakText = (text, startTime) => {
+    if (!speechSynthesisRef.current) return;
 
-    videoElement?.addEventListener("timeupdate", handleTimeUpdate);
-    return () => {
-      videoElement?.removeEventListener("timeupdate", handleTimeUpdate);
-    };
-  }, [videoPath]);
-
-  const handleVideoPlay = () => {
-    if (!captions.length || !speechSynthesisRef.current || !videoRef.current) return;
+    // Cancel any ongoing speech
     speechSynthesisRef.current.cancel();
 
-    const duration = videoRef.current.duration || 0;
-    speechEndTimeRef.current = duration * 0.95;
+    // Create new utterance
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
 
-    const text = captions.join(". ");
-    const totalChars = text.length;
-    const estimatedSeconds = totalChars / 15;
-    const availableTime = duration - 1;
-    let rate = 1;
-
-    if (estimatedSeconds > availableTime) {
-      rate = Math.min(2.0, Math.max(0.8, estimatedSeconds / availableTime));
+    // Get available voices and set to a female voice if available
+    const voices = speechSynthesisRef.current.getVoices();
+    const femaleVoice = voices.find(voice => voice.name.includes('Female')) || voices[0];
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
     }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = rate;
-    utterance.pitch = 1;
+    // Store current utterance for cleanup
+    currentUtteranceRef.current = utterance;
+
+    // Speak the text
     speechSynthesisRef.current.speak(utterance);
   };
 
+  const handleVideoPlay = () => {
+    if (!captions.length || !videoRef.current) return;
+    
+    const video = videoRef.current;
+    const currentTime = video.currentTime;
+    
+    // Find the current caption based on video time
+    const captionDuration = video.duration / captions.length;
+    const currentIndex = Math.floor(currentTime / captionDuration);
+    
+    if (currentIndex < captions.length) {
+      speakText(captions[currentIndex], currentTime);
+    }
+  };
+
   const handleVideoPause = () => {
-    speechSynthesisRef.current?.pause();
+    if (speechSynthesisRef.current) {
+      speechSynthesisRef.current.pause();
+    }
   };
 
   const handleVideoEnded = () => {
-    speechSynthesisRef.current?.cancel();
+    if (speechSynthesisRef.current) {
+      speechSynthesisRef.current.cancel();
+    }
   };
 
   const handleVideoError = () => {
@@ -233,36 +239,117 @@ export default function TikTokVideoGenerator() {
     const videoUrl = cloudinaryUrl || `${process.env.NEXT_PUBLIC_BACKEND_URL}${videoPath}`;
     const shareText = 'Check out this amazing video I created with AI!';
     
-    switch (platform) {
-      case 'youtube':
-        window.open('https://www.youtube.com/upload', '_blank');
-        break;
-      case 'instagram':
-        window.open('https://www.instagram.com/create/story', '_blank');
-        break;
-      case 'facebook':
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(videoUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
-        break;
-      case 'twitter':
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(videoUrl)}`, '_blank');
-        break;
-      case 'tiktok':
-        window.open('https://www.tiktok.com/upload', '_blank');
-        break;
-      default:
-        // Generic share
-        if (navigator.share) {
-          try {
-            await navigator.share({
-              title: 'My Generated Video',
-              text: shareText,
-              url: videoUrl
-            });
-          } catch (err) {
-            console.error('Error sharing:', err);
+    try {
+      // First download the video file
+      const response = await fetch(videoUrl);
+      if (!response.ok) throw new Error('Failed to fetch video');
+      
+      const blob = await response.blob();
+      const file = new File([blob], 'generated_video.mp4', { type: 'video/mp4' });
+      
+      // Create a temporary URL for the file
+      const fileUrl = URL.createObjectURL(file);
+      
+      switch (platform) {
+        case 'youtube':
+          // Open YouTube upload page
+          window.open('https://www.youtube.com/upload', '_blank');
+          // Also download the file for manual upload
+          downloadFile(fileUrl, 'youtube_upload.mp4');
+          break;
+          
+        case 'instagram':
+          // Open Instagram upload page
+          window.open('https://www.instagram.com/create/story', '_blank');
+          // Download file for manual upload
+          downloadFile(fileUrl, 'instagram_upload.mp4');
+          break;
+          
+        case 'facebook':
+          // Open Facebook upload page
+          window.open('https://www.facebook.com/', '_blank');
+          // Download file for manual upload
+          downloadFile(fileUrl, 'facebook_upload.mp4');
+          break;
+          
+        case 'twitter':
+          // Open Twitter compose page
+          window.open('https://twitter.com/compose/tweet', '_blank');
+          // Download file for manual upload
+          downloadFile(fileUrl, 'twitter_upload.mp4');
+          break;
+          
+        case 'whatsapp':
+          // For WhatsApp, we'll use the Web Share API if available
+          if (navigator.share) {
+            try {
+              await navigator.share({
+                title: 'My Generated Video',
+                text: shareText,
+                files: [file]
+              });
+            } catch (err) {
+              console.error('WhatsApp share failed:', err);
+              // Fallback to download
+              downloadFile(fileUrl, 'whatsapp_share.mp4');
+            }
+          } else {
+            // Fallback to download
+            downloadFile(fileUrl, 'whatsapp_share.mp4');
           }
-        }
+          break;
+          
+        case 'tiktok':
+          // Open TikTok upload page
+          window.open('https://www.tiktok.com/upload', '_blank');
+          // Download file for manual upload
+          downloadFile(fileUrl, 'tiktok_upload.mp4');
+          break;
+          
+        default:
+          // Generic share using Web Share API
+          if (navigator.share) {
+            try {
+              await navigator.share({
+                title: 'My Generated Video',
+                text: shareText,
+                files: [file]
+              });
+            } catch (err) {
+              console.error('Share failed:', err);
+              // Fallback to download
+              downloadFile(fileUrl, 'generated_video.mp4');
+            }
+          } else {
+            // Fallback to download
+            downloadFile(fileUrl, 'generated_video.mp4');
+          }
+      }
+      
+      // Clean up the temporary URL
+      URL.revokeObjectURL(fileUrl);
+      
+    } catch (error) {
+      console.error('Error sharing video:', error);
+      alert('Failed to share video. Please try downloading and sharing manually.');
+      // Fallback to direct download
+      const link = document.createElement('a');
+      link.href = videoUrl;
+      link.download = 'generated_video.mp4';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
+  };
+
+  // Helper function to download files
+  const downloadFile = (url, filename) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleRatingSubmit = async () => {
@@ -303,6 +390,43 @@ export default function TikTokVideoGenerator() {
     setShowRatingPopup(false);
   };
 
+  const handleVideoSeek = () => {
+    if (!videoRef.current || !captions.length) return;
+    
+    const video = videoRef.current;
+    const currentTime = video.currentTime;
+    
+    // Find the current caption based on video time
+    const captionDuration = video.duration / captions.length;
+    const currentIndex = Math.floor(currentTime / captionDuration);
+    
+    if (currentIndex < captions.length) {
+      speakText(captions[currentIndex], currentTime);
+    }
+  };
+
+  // Add timeupdate event listener to handle caption transitions
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !captions.length) return;
+
+    const handleTimeUpdate = () => {
+      const currentTime = video.currentTime;
+      const captionDuration = video.duration / captions.length;
+      const currentIndex = Math.floor(currentTime / captionDuration);
+      
+      // If we're at the start of a new caption, speak it
+      if (currentTime % captionDuration < 0.1) {
+        speakText(captions[currentIndex], currentTime);
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [captions, videoPath]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white py-20 px-4 sm:px-6">
       <motion.div
@@ -337,26 +461,51 @@ export default function TikTokVideoGenerator() {
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder="Describe your video idea..."
-                    className="w-full h-32 bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                    disabled={loading}
+                    className={`w-full h-32 bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none ${
+                      loading ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                   />
                 </div>
 
                 <div className="relative">
                   <label className="block text-gray-300 mb-2">Or upload a document</label>
                   <div className="flex items-center justify-center w-full">
-                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-700 transition-colors">
+                    <label className={`flex flex-col items-center justify-center w-full h-32 border-2 border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-700 transition-colors ${
+                      loading ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''
+                    }`}>
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <Upload className="w-8 h-8 mb-3 text-gray-400" />
-                        <p className="mb-2 text-sm text-gray-400">
-                          <span className="font-semibold">Click to upload</span> or drag and drop
-                        </p>
-                        <p className="text-xs text-gray-500">PDF, DOC, DOCX, or TXT</p>
+                        {loading ? (
+                          <>
+                            <Wand2 className="w-8 h-8 mb-3 text-gray-400 animate-spin" />
+                            <p className="mb-2 text-sm text-gray-400">
+                              Generating video...
+                            </p>
+                          </>
+                        ) : documentFile ? (
+                          <>
+                            <FileText className="w-8 h-8 mb-3 text-gray-400" />
+                            <p className="mb-2 text-sm text-gray-400">
+                              <span className="font-semibold">{documentFile.name}</span>
+                            </p>
+                            <p className="text-xs text-gray-500">Click to change file</p>
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-8 h-8 mb-3 text-gray-400" />
+                            <p className="mb-2 text-sm text-gray-400">
+                              <span className="font-semibold">Click to upload</span> or drag and drop
+                            </p>
+                            <p className="text-xs text-gray-500">PDF, DOC, DOCX, or TXT</p>
+                          </>
+                        )}
                       </div>
                       <input
                         type="file"
                         className="hidden"
                         accept=".pdf,.doc,.docx,.txt"
                         onChange={(e) => setDocumentFile(e.target.files[0])}
+                        disabled={loading}
                       />
                     </label>
                   </div>
@@ -377,14 +526,15 @@ export default function TikTokVideoGenerator() {
                     {options.map(({ id, name, description, icon }) => (
                       <motion.button
                         key={id}
-                        onClick={() => setSelected(id)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        onClick={() => !loading && setSelected(id)}
+                        whileHover={{ scale: loading ? 1 : 1.02 }}
+                        whileTap={{ scale: loading ? 1 : 0.98 }}
                         className={`p-4 rounded-xl border transition-all ${
                           selected === id
                             ? "bg-indigo-600 border-indigo-500 text-white"
                             : "bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700"
-                        }`}
+                        } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={loading}
                       >
                         <div className="text-2xl mb-2">{icon}</div>
                         <div className="font-medium">{name}</div>
@@ -399,16 +549,19 @@ export default function TikTokVideoGenerator() {
             {/* Action Buttons */}
             <motion.div variants={itemVariants} className="flex gap-4">
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: loading ? 1 : 1.02 }}
+                whileTap={{ scale: loading ? 1 : 0.98 }}
                 onClick={handleClear}
-                className="flex-1 px-6 py-3 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition-colors"
+                disabled={loading}
+                className={`flex-1 px-6 py-3 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition-colors ${
+                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
                 Clear
               </motion.button>
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: loading ? 1 : 1.02 }}
+                whileTap={{ scale: loading ? 1 : 0.98 }}
                 onClick={handleGenerate}
                 disabled={loading}
                 className={`flex-1 px-6 py-3 rounded-xl text-white transition-colors ${
@@ -468,6 +621,7 @@ export default function TikTokVideoGenerator() {
                     onEnded={handleVideoEnded}
                     onError={handleVideoError}
                     onLoadedMetadata={handleVideoMetadata}
+                    onSeeked={handleVideoSeek}
                   >
                     <source src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${videoPath}`} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -541,6 +695,16 @@ export default function TikTokVideoGenerator() {
                       >
                         <Facebook size={20} />
                         <span>Facebook</span>
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => handleShare('whatsapp')}
+                        className="flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                      >
+                        <MessageCircle size={20} />
+                        <span>WhatsApp</span>
                       </motion.button>
                     </div>
                   </div>

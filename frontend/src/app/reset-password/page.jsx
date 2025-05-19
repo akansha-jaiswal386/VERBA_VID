@@ -1,12 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const ResetPassword = () => {
+// Loading component
+const LoadingState = () => (
+  <div className="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-black to-gray-900">
+    <Loader2 className="animate-spin text-white" size={40} />
+  </div>
+);
+
+// Main component
+const ResetPasswordContent = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -172,6 +180,15 @@ const ResetPassword = () => {
         </form>
       </motion.div>
     </section>
+  );
+};
+
+// Wrapper component with Suspense
+const ResetPassword = () => {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 };
 
