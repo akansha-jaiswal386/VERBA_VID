@@ -33,6 +33,9 @@ app.use("/api/admin", adminRouter);
 app.use(cors({ origin: "*" }));
 app.use("/rating",ratingRoutes)
 
+app.use(cors({
+  origin: 'https://your-frontend-url.vercel.app'
+}));
 
 
 // Ensure API keys are set
